@@ -125,8 +125,12 @@ html, body{
 
 /* 富文本编辑器 */
 #editor—wrapper {
+  /* 富文本编辑器的边框 */
   border: 1px solid #ccc;
+  /* 富文本编辑器的层级 */
   z-index: 100; /* 按需定义 */
 }
+/* 工具栏的容器有一个下边框 */
 #toolbar-container { border-bottom: 1px solid #ccc; }
+/* 编辑器的内容区域 */
 #editor-container { height: 500px; }
