@@ -138,8 +138,6 @@ document.querySelector('.last').addEventListener('click', e => {
 })
 
 
-
-
 /**
  * 目标4：删除功能
  *  4.1 关联文章 id 到删除图标 在上面的 setArtileList 函数中实现的
@@ -160,9 +158,30 @@ document.querySelector('.art-list').addEventListener('click', async e => {
             url: `/v1_0/mp/articles/${delId}`,
             method: 'DELETE'
         })
+
+        // 4.5 删除最后一页的最后一条，需要自动向前翻页
+        const children = document.querySelector('.art-list').children
+        if (children.length === 1 && queryObj.page !== 1) {
+            queryObj.page--
+            document.querySelector('.page-now').innerHTML = `第 ${queryObj.page} 页`
+        }
+
         console.log(res)
         // 4.4 重新获取文章列表，并覆盖展示
         setArtileList()
+    }
+})
+
+// 这个是当要编辑文章的时候，要进行的处理，这个功能涉及到两个页面，一个是 publish 一个是content
+// 点击编辑的时候，获取文章 id, 跳转到发布文章页面传递文章 id 过去
+// 4.1 页面跳转传参（URL 查询参数方式）
+document.querySelector('.art-list').addEventListener('click', e => {
+    // 如果 事件对象.target 的 class 集合中包含 edit 的类名
+    if (e.target.classList.contains('edit')) {
+        // 拿到需要进行编辑的内容 id
+        const artId = e.target.parentNode.dataset.id
+        // console.log(artId)
+        location.href = `../publish/index.html?id=${artId}`
     }
 })
 
